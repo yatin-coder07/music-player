@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Zeyada&display=swap');
+
+
+
+*{
+    margin:0;
+    box-sizing: border-box;
+    font-family: 'poppins','sans-serif';
+}
+.container{
+    width:100%;
+    height:200vh;
+    background: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap:wrap;
+    
+}
+.music-player{
+    background: #ffe0e5;
+    width:400px;
+    padding: 25px  35px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow:8px 8px 8px 8px rgb(71, 171, 185) ;
+   
+}
+nav{  
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}   
+
+.circle{
+    width:30px;
+    height: 30px;
+    padding-top: 6px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 3px 3px 20px 0px rgb(242, 137, 137) ;
+}
+
+.pic{
+    height: 250px;
+    width: 250px;;
+    padding: 20px;
+    background: #fff;
+    border-radius: 7px;;
+}
+.name{
+    font-size: 20px;
+    font-weight: 30;
+    color: rgb(81, 79, 79);
+}
+.artist{
+    color: rgb(64, 61, 61);
+}
+
+.songMeter{
+    background: rgb(242, 137, 137) ;
+}
+
+#progressBar{
+    -webkit-appearance: none;
+    background:#f38799 ;
+    height: 6px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:40px 0;
+
+    
+}
+
+#progressBar::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background: #f53192;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+}
+.icons{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.icons div{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    width: 60px;
+    height: 60px;
+    color: #f53192;
+     box-shadow:0 10px 20px rgba(255 , 26 ,26 ,0.22) ;
+     border-radius: 50%;
+
+    margin: 20px;
+}
+.icons div:nth-child(2){
+    transform: scale(1.5);
+}

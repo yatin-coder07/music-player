@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music player</title>
+    <link rel="stylesheet" href="music.css">
+    <script src="https://kit.fontawesome.com/451b75afa4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <div class="picture">
+                <img  class="pic">
+                <p class="name"></p>
+                <p class="artist"> Karan Aujla</p>
+
+                <audio   id="song" >
+                    <source  type="audio/mpeg" >
+                </audio>
+                <input type="range" vlaue="0" id="progressBar">
+                <div class="icons">
+                    <div class="back"><i class="fa-solid fa-backward"></i></div>
+                <div class="playBtn" onclick="pauseplay()"><i class="fa-solid fa-play"></i></div>
+                <div class="next"><i class="fa-solid fa-forward"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+
+        const songs =[
+            'Wavy - Karan Aujla.mp3','Aaye Haaye - Karan Aujla.mp3','Admirin You - Karan Aujla.mp3'
+        ];
+
+       
+        
+        
+
+        const images = [
+        'images/Screenshot 2025-01-11 124459.png',
+        'images/Screenshot 2025-01-11 171330.png',
+        'images/Screenshot 2025-01-11 171455.png'
+            
+        ];
+
+       
+
+
+
+        let songName = [
+            'Wavy ' , 'Aaye Haye' ,'Admirin you'
+        ];
+
+        let currentsongNameIndex = 0;
+    
+
+        /*1. Getting Elements:
+let progress = document.getElementById("progress");
+This line gets a reference to an HTML element with the ID "progress", likely a progress bar used to visualize the playback progress of the song.
+
+let song = document.getElementById("song");
+This line gets a reference to an HTML audio element with the ID "song", which is the audio file being played.
+
+let ctrlIcon = document.getElementById("ctrlIcon");
+This line gets a reference to an HTML element with the ID "ctrlIcon", likely an icon used to control playback (play/pause)*/
+
+        let progress = document.getElementById("progressBar");
+        let song = document.getElementById("song");
+        let ctrlicon = document.querySelector(".playBtn");
+
+        let forwardBtn = document.querySelector(".next");
+        let backwardBtn = document.querySelector(".back");
+        let songPic = document.querySelector(".pic");
+        let name = document.querySelector(".name");
+
+
+
+   /* did this to add a default song when no function is running and site is freshly open*/
+
+        let currentSongIndex=0;
+        song.src=songs[currentSongIndex];
+
+        let currentImageIndex = 0;
+        songPic.src=images[currentImageIndex];
+
+
+        /*2. Setting Up Progress Bar:
+song.onloadedmetadata = function() { ... }:
+This event listener is triggered when the metadata of the audio file is loaded.
+
+progress.max = song.duration;
+It sets the maximum value of the progress bar to the duration of the song.
+
+progress.value = song.currentTime;
+It sets the current value of the progress bar to the current playback time of the song.*/
+
+        song.onloadedmetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+
+        /*3. Play/Pause Functionality:
+
+function playPause() { ... }:
+This function handles toggling between play and pause states.
+if (ctrlIcon.classList.contains("fa-pause")) { ... }:
+If the control icon has the class "fa-pause" (indicating the song is playing), it executes the following:
+
+song.pause();
+Pauses the audio.
+
+ctrlIcon.classList.remove("fa-pause");
+Removes the "fa-pause" class from the icon.
+
+ctrlIcon.classList.add("fa-play");
+Adds the "fa-play" class to the icon.
+
+else { ... }:
+If the song is not playing:
+song.play();
+Plays the audio.
+*/
+
+        function pauseplay(){
+            if(ctrlicon.classList.contains("fa-pause")){
+                song.pause();
+                ctrlicon.classList.remove("fa-pause");
+                ctrlicon.classList.add("fa-play")
+            }
+            else{
+                song.play();
+                ctrlicon.classList.add("fa-pause");
+                ctrlicon.classList.remove("fa-play");
+            }
+           
+        }
+        if(song.play()){
+            setInterval(() => {
+                progress.value=song.currentTime;
+            },500);
+        }
+
+        progress.onchange=function(){
+            song.play();
+            song.currentTime = progress.value;
+            ctrlicon.classList.add("fa-pause");
+            ctrlicon.classList.remove("fa-play");
+            
+        }
+
+        
+
+        forwardBtn.addEventListener('click',playnext);
+        backwardBtn.addEventListener('click',playprev);
+
+
+        function playnext(){
+            if(currentSongIndex < songs.length - 1 && currentImageIndex < images.length - 1 ){
+                currentSongIndex++
+                currentImageIndex++
+                song.src = songs[currentSongIndex];
+                song.play();
+                ctrlicon.classList.add("fa-pause");
+                ctrlicon.classList.remove("fa-play");
+                songPic.src=images[currentImageIndex];
+
+            }
+            else if(currentSongIndex === songs.length - 1 && currentImageIndex === images.length-1 ){
+                currentSongIndex = 0;
+                song.src=songs[currentSongIndex];
+                song.play();
+                ctrlicon.classList.add("fa-pause");
+                ctrlicon.classList.remove("fa-play");
+                currentImageIndex = 0;
+                songPic.src=images[currentImageIndex];
+            }
+
+
+
+
+        }
+        function playprev(){
+            if(currentSongIndex > 0 && currentImageIndex > 0){
+                currentSongIndex--
+                currentImageIndex--
+                song.src = songs[currentSongIndex];
+                song.play();
+                ctrlicon.classList.add("fa-pause");
+                ctrlicon.classList.remove("fa-play");
+                songPic.src= images[currentImageIndex];
+            }
+
+            else if (currentSongIndex === 0 && currentImageIndex === 0 ){
+                currentSongIndex==2;
+                song.src = songs[currentSongIndex];
+                song.play();
+                ctrlicon.classList.add("fa-pause");
+                ctrlicon.classList.remove("fa-play");
+                currentImageIndex==2;
+                songPic.src= images[currentImageIndex];
+            }
+            
+        }
+
+        
+
+
+    </script>
+    
+</body>
+</html>
